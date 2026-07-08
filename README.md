@@ -42,7 +42,7 @@ A small Flask web app that lets you upload invoice files (images/PDFs), uses **G
 
 Before running, set up the following:
 
-1. **`api.py`** — must define an `api_key` variable containing your Google Gemini API key (used implicitly by `genai.Client()`, typically via the `GOOGLE_API_KEY`/`GEMINI_API_KEY` environment variable — make sure `api.py` exports/sets it appropriately).
+1. **`envirment variable** — must define an `api_key` variable containing your Google Gemini API key (used implicitly by `genai.Client()`, typically via the `GOOGLE_API_KEY`/`GEMINI_API_KEY` environment variable — make sure 
 2. **`prom.py`** — must define a `prt()` function that returns the prompt instructing Gemini how to extract invoice fields (`company_name`, `service`, `total_payment`, `due_date`) as JSON.
 3. **Flask secret key** — replace the placeholder in `app.secret_key` with a real, secret value.
 4. **Email credentials** — in `auto_mail()`, replace `"YOUR_APP_PASSWORD"` with a Gmail **App Password** (not your regular password) for the sender account. Consider moving `sender`, `recipient`, and `password` into environment variables instead of hardcoding them.
