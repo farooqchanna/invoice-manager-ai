@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Records — Ledger{% endblock %}
+{% block nav_view %}active{% endblock %}
+{% block stage_class %}wide{% endblock %}
+
+{% block content %}
+    <p class="eyebrow">All entries · Extracted by Gemini AI</p>
+    <h1 class="page-title">Invoice records</h1>
+    <h1 class="eyebrow"> Total Amount to Pay {{total}}</h1>
+
+    {% if found %}
+        <div class="table-panel">
+            {{ data|safe }}
+        </div>
+    {% else %}
+        <div class="table-panel">
+            <div class="empty-state">
+                <div class="glyph">◧</div>
+                <p>No invoices logged yet.</p>
+                <p><a href="{{ url_for('home') }}">Upload the first one</a> to see it here.</p>
+            </div>
+        </div>
+    {% endif %}
+    <fieldset class="eyebrow">Enter Number of Paid Invoice to Remove
+        <form action="view" method="POST">
+            <label for="number"> Invoice Number</label>
+            <input type="number" name="number" id="">
+            <input type="submit" value="Remove">
+        </form>
+    </fieldset>
+{% endblock %}

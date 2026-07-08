@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Upload invoice — Ledger{% endblock %}
+{% block nav_upload %}active{% endblock %}
+
+{% block content %}
+    <p class="eyebrow">New entry · Extracted by Gemini AI</p>
+    <h1 class="page-title">Upload an invoice</h1>
+
+    <div class="receipt">
+        <div class="receipt-head">
+            <span>INTAKE</span>
+            <span class="ref">REF// UPLOAD-{{ ref if ref else '000' }}</span>
+        </div>
+
+        <form method="POST" action="{{ url_for('home') }}" enctype="multipart/form-data" id="upload-form">
+            <label class="file-drop" for="file">
+                <div class="drop-icon">⇪</div>
+                <div class="drop-text">Click to choose a file, or drag one here<br>PDF, PNG or JPG</div>
+                <input type="file" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" required>
+            </label>
+            <div class="file-name" id="file-name"></div>
+
+            <br>
+            <button type="submit" class="btn">Extract invoice data</button>
+        </form>
+    </div>
+
+    <p class="hint">Fields are extracted automatically by Gemini AI — review them on the Records page after processing.</p>
+{% endblock %}
+
+{% block head %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var input = document.getElementById("file");
+    var name = document.getElementById("file-name");
+    input.addEventListener("change", function () {
+        name.textContent = input.files.length ? "Selected: " + input.files[0].name : "";
+    });
+});
+</script>
+{% endblock %}

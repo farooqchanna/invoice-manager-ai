@@ -1,0 +1,430 @@
+/* ============================================================
+   LEDGER — a receipt/terminal theme for the invoice tool
+   Tokens
+   ------
+   Color:  --bg #14140F  --panel #1C1B15  --paper #F6F1E4
+           --accent #FFB627  --accent-dim #8C6A1F
+           --ink #EDE7D9  --muted #8A8578  --danger #E2574C
+   Type:   "Fraunces" (display, restrained) / "Space Mono" (data + labels)
+   Signature: perforated "torn receipt" card edge + amber ledger rule
+   ============================================================ */
+
+:root {
+  --bg: #f6f1e4;
+  --panel: #ffffff;
+  --paper: #fffdf7;
+  --accent: #c97b12;
+  --accent-strong: #a3620a;
+  --accent-dim: #d9b978;
+  --ink: #211f16;
+  --muted: #6b6552;
+  --danger: #b8362c;
+  --ok: #3f7a44;
+  --radius: 2px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(201, 123, 18, 0.07), transparent 45%),
+    radial-gradient(circle at 85% 100%, rgba(201, 123, 18, 0.05), transparent 40%);
+  color: var(--ink);
+  font-family: "Space Mono", "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- header ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 32px;
+  background: var(--panel);
+  border-bottom: 1px solid #e3dcc6;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.brand-mark {
+  color: var(--accent);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.brand-name {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.brand-sub {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.ai-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  border: 1px solid var(--accent-dim);
+  background: #fdf3e3;
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+.ai-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+nav.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+nav.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 4px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+nav.site-nav a:hover,
+nav.site-nav a.active {
+  color: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.logout-form { margin: 0; }
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid var(--accent-dim);
+  color: var(--accent-strong);
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-logout:hover {
+  background: var(--accent-strong);
+  color: #fffdf7;
+  border-color: var(--accent-strong);
+}
+
+/* ---------- main / layout ---------- */
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 56px 24px;
+}
+
+.stage {
+  width: 100%;
+  max-width: 560px;
+}
+
+.stage.wide { max-width: 920px; }
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin: 0 0 8px;
+}
+
+h1.page-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 30px;
+  margin: 0 0 28px;
+  color: var(--ink);
+}
+
+/* ---------- ledger rule (signature structural device) ---------- */
+
+.ledger-rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ledger-rule::before,
+.ledger-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(to right, #d9d2ba 0, #d9d2ba 4px, transparent 4px, transparent 8px);
+}
+
+/* ---------- receipt card (perforated edge signature) ---------- */
+
+.receipt {
+  background: var(--paper);
+  color: #211f16;
+  border-radius: var(--radius);
+  padding: 36px 34px 30px;
+  position: relative;
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.65);
+}
+
+.receipt::before,
+.receipt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: radial-gradient(circle at 6px 5px, var(--bg) 4px, transparent 4.5px);
+  background-size: 14px 10px;
+  background-repeat: repeat-x;
+}
+.receipt::before { top: -5px; }
+.receipt::after { bottom: -5px; transform: rotate(180deg); }
+
+.receipt-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px dashed #b9b1974d;
+  padding-bottom: 14px;
+  margin-bottom: 22px;
+}
+
+.receipt-head .ref {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #6b6552;
+}
+
+/* ---------- form elements ---------- */
+
+.field { margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6552;
+  margin-bottom: 7px;
+}
+
+.field input[type="text"],
+.field input[type="password"],
+.field input[type="email"] {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cfc6ac;
+  background: #fffdf7;
+  color: #211f16;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  border-radius: var(--radius);
+}
+
+.field input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.file-drop {
+  border: 1.5px dashed #b9b197;
+  border-radius: var(--radius);
+  padding: 30px 16px;
+  text-align: center;
+  background: #fffdf7;
+  cursor: pointer;
+}
+
+.file-drop:hover { border-color: var(--accent-dim); }
+
+.file-drop .drop-icon {
+  font-size: 22px;
+  color: var(--accent-dim);
+  margin-bottom: 8px;
+}
+
+.file-drop .drop-text { font-size: 12.5px; color: #6b6552; }
+
+.file-drop input[type="file"] { display: none; }
+
+.file-name {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #3c3928;
+  min-height: 1em;
+}
+
+button.btn,
+input.btn {
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #1a1608;
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.15s ease;
+}
+
+button.btn:hover, input.btn:hover {
+  box-shadow: 0 8px 18px -8px rgba(255, 182, 39, 0.55);
+}
+button.btn:active, input.btn:active { transform: translateY(1px); }
+
+.hint {
+  margin-top: 16px;
+  font-size: 11.5px;
+  color: #8a8578;
+  text-align: center;
+}
+
+/* ---------- alerts / status ---------- */
+
+.stamp {
+  display: inline-block;
+  border: 1.5px solid var(--danger);
+  color: var(--danger);
+  padding: 6px 12px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transform: rotate(-2deg);
+  margin-bottom: 18px;
+}
+
+.stamp.ok { border-color: var(--ok); color: var(--ok); }
+
+/* ---------- data table (view page) ---------- */
+
+.table-panel {
+  background: var(--paper);
+  color: #211f16;
+  border-radius: var(--radius);
+  padding: 26px 26px 20px;
+  overflow-x: auto;
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.65);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead th {
+  text-align: left;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6552;
+  border-bottom: 1px solid #cfc6ac;
+  padding: 0 10px 10px;
+}
+
+tbody td {
+  padding: 10px 10px;
+  border-bottom: 1px dashed #d9d2ba;
+  color: #211f16;
+}
+
+tbody tr:hover { background: rgba(255, 182, 39, 0.09); }
+
+/* empty state */
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #6b6552;
+}
+
+.empty-state .glyph {
+  font-size: 26px;
+  color: var(--accent-dim);
+  margin-bottom: 10px;
+}
+
+.empty-state a {
+  color: var(--accent-dim);
+  text-decoration: underline;
+}
+
+/* ---------- footer ---------- */
+
+footer.site-footer {
+  padding: 18px 32px;
+  background: var(--panel);
+  border-top: 1px solid #e3dcc6;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 560px) {
+  .site-header { padding: 18px 20px; }
+  main { padding: 40px 16px; }
+  .receipt { padding: 28px 22px 24px; }
+}

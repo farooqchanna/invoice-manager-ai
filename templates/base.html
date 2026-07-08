@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ledger{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="wrap">
+        <header class="site-header">
+            <a class="brand" href="{{ url_for('home') }}">
+                <span class="brand-mark">◧</span>
+                <span>
+                    <span class="brand-name">Ledger</span><br>
+                    <span class="brand-sub">AI-Powered Invoice Automation</span>
+                </span>
+            </a>
+            <div class="header-right">
+                <span class="ai-badge"><span class="dot"></span> Powered by Gemini AI</span>
+                <nav class="site-nav">
+                    <a href="{{ url_for('home') }}" class="{% block nav_upload %}{% endblock %}">Upload</a>
+                    <a href="{{ url_for('view') }}" class="{% block nav_view %}{% endblock %}">Records</a>
+                    {% if session.get('user') %}
+                        <form class="logout-form" method="POST" action="{{ url_for('logout') }}">
+                            <button type="submit" class="btn-logout">Sign out</button>
+                        </form>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="stage {% block stage_class %}{% endblock %}">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <span>REF// invoice-ledger</span>
+            <span>{% block footer_note %}v1.0{% endblock %}</span>
+        </footer>
+    </div>
+</body>
+</html>
